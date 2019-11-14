@@ -1,0 +1,119 @@
+html {
+  background-color: #f3f3f3 !important;
+}
+
+.fx {
+  display: flex !important;
+}
+
+.fx-cc {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.fxdc {
+  flex-direction: column;
+}
+
+.fxdr {
+  flex-direction: row;
+}
+
+.fxdr-s {
+  flex-direction: row;
+}
+
+.fxdr-m {
+  flex-direction: row;
+}
+
+.fxdr-l {
+  flex-direction: row;
+}
+
+.fxdrerow {
+  flex-direction: row-reverse;
+}
+
+.fjcc {
+  justify-content: center;
+}
+
+.fjcsb {
+  justify-content: space-between;
+}
+
+.fjcfs {
+  justify-content: flex-start;
+}
+
+.fjcfe {
+  justify-content: flex-end;
+}
+
+.faibl {
+  align-items: baseline;
+}
+
+.faic {
+  align-items: center;
+}
+
+.faifs {
+  align-items: flex-start;
+}
+
+.fxww {
+  flex-wrap: wrap;
+}
+
+.phone-product {
+  height: 250px;
+  width: 200px;
+  transition: 1s;
+  margin: 20px;
+  padding: 0px !important;
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+}
+.product-hover-effect {
+  position: absolute;
+  transition: 1s;
+  opacity: 0;
+  background-color: #cffaffe0;
+}
+.phone-product:hover {
+  box-shadow: 0px 40px 26px 4px #dcdcdc;
+}
+.phone-product:hover .product-hover-effect {
+  opacity: 1;
+}
+
+.add-form {
+  z-index: 999999;
+  top: 20%;
+  background-color: transparent !important;
+}
+.add-form > div {
+  background-color: white;
+  border-radius: 10px;
+}
+.compare-table-row {
+  display: flex;
+}
+table {
+  width: 60% !important;
+}
+@media (max-width: 600px) {
+  table {
+    width: 100%;
+  }
+}
+
+.kk {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
