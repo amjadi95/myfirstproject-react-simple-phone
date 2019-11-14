@@ -12,6 +12,8 @@ class AddForm extends Component {
 
   RamHandleChange = event => {
     this.setState({ ram: event.target.value });
+    let p = 0;
+    p = p + 1;
   };
   StorageHandleChange = event => {
     this.setState({ storage: event.target.value });
