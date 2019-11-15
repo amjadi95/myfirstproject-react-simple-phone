@@ -1,18 +1,32 @@
 import React, { Component } from "react";
 
 class AddForm extends Component {
-  state = {
-    ram: this.props.data ? this.props.data.ram : "",
-    storage: this.props.data ? this.props.data.storage : "",
-    battery: this.props.data ? this.props.data.battery : "",
-    brand: this.props.data ? this.props.data.brand : "",
-    model: this.props.data ? this.props.data.model : "",
-    id: 0
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      ram: "",
+      storage: "",
+      battery: "",
+      brand: "",
+      model: "",
+      id: 0
+    };
+  }
 
+  componentDidMount() {
+    this.setState({
+      ram: this.props.data ? this.props.data.ram : "",
+      storage: this.props.data ? this.props.data.storage : "",
+      battery: this.props.data ? this.props.data.battery : "",
+      brand: this.props.data ? this.props.data.brand : "",
+      model: this.props.data ? this.props.data.model : "",
+      id: 0
+    });
+  }
   RamHandleChange = event => {
     this.setState({ ram: event.target.value });
     let p = 0;
+
     p = p + 1;
   };
   StorageHandleChange = event => {
