@@ -97,6 +97,7 @@ class Cntn extends Component {
   };
   EdittedHandler = obj => {
     let newList = this.state.list;
+    newList.forEach(el => {});
     for (let index = 0; index < newList.length; index++) {
       if (newList[index].id == obj.id) {
         newList[index] = obj;
@@ -177,13 +178,11 @@ class Cntn extends Component {
           </div>
         </div>
         <div className="col-12 " style={{ textAlign: "center" }}>
-          {this.state.compare ? (
+          {this.state.compare && (
             <CompareTable
               list={this.state.compareList}
               onRemove={this.RemoveCompareHandler}
             />
-          ) : (
-            ""
           )}
         </div>
       </div>

@@ -27,13 +27,11 @@ class AddForm extends Component {
     this.setState({ ram: event.target.value });
     let p = 0;
 
-    p = p + 1;
-  };
   StorageHandleChange = event => {
     this.setState({ storage: event.target.value });
   };
   BatteryHandleChange = event => {
-    this.setState({ battery: event.target.value });
+    this.setState({ battery: event.target.value });5
   };
   BrandHandleChange = event => {
     this.setState({ brand: event.target.value });
@@ -41,6 +39,8 @@ class AddForm extends Component {
   ModelHandleChange = event => {
     this.setState({ model: event.target.value });
   };
+  nm, nmbnjkm
+  njkml;
   resetState = () => {
     this.setState({
       ram: "",
