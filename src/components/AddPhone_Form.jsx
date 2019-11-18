@@ -25,13 +25,12 @@ class AddForm extends Component {
   }
   RamHandleChange = event => {
     this.setState({ ram: event.target.value });
-    let p = 0;
- mbm
+  };
   StorageHandleChange = event => {
     this.setState({ storage: event.target.value });
   };
   BatteryHandleChange = event => {
-    this.setState({ battery: event.target.value });5
+    this.setState({ battery: event.target.value });
   };
   BrandHandleChange = event => {
     this.setState({ brand: event.target.value });
@@ -39,18 +38,7 @@ class AddForm extends Component {
   ModelHandleChange = event => {
     this.setState({ model: event.target.value });
   };
-  nm, nmbnjkm
-  njkml;
-  resetState = () => {
-    this.setState({
-      ram: "",
-      storage: "",
-      battery: "",
-      brand: "",
-      model: "",
-      id: 0
-    });
-  };
+
   render() {
     // let brand = "",
     //   model = "",
@@ -149,7 +137,6 @@ class AddForm extends Component {
             onClick={() => {
               this.state.id = this.props.data.id;
               this.props.onEdit(this.state);
-              this.resetState();
               this.props.onClose();
             }}
           >
@@ -161,7 +148,6 @@ class AddForm extends Component {
             onClick={() => {
               this.state.id = this.props.myId + 1;
               this.props.onAdded(this.state);
-              this.resetState();
               this.props.onClose();
             }}
           >

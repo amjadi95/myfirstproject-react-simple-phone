@@ -114,6 +114,11 @@ table {
 
 .kk {
   position: absolute;
-  top: 0px;
-  right: 0px;
+  top: 5px;
+  right: 5px;
+  padding: 2px !important;
+  width: 20px;
+  height: 20px;
+  font-size: 11px !important;
+  line-height: 1px !important;
 }

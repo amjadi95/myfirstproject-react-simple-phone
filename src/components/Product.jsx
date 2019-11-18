@@ -17,7 +17,7 @@ class Product extends Component {
           }}
         >
           <div className="w-100 h-100  product-hover-effect  fx-cc">
-            <div className="position-relative">
+            <div className="position-relative w-100 h-100 fx-cc fxdc">
               <button
                 style={
                   this.props.AddedToCompare
@@ -36,6 +36,17 @@ class Product extends Component {
                 Edit Product
               </button>
               <button
+                style={
+                  this.props.AddedToCompare
+                    ? { display: "block" }
+                    : { display: "none" }
+                }
+                className="btn btn-outline-danger m-1"
+                onClick={() => this.props.onRemove(this.props.info.id)}
+              >
+                Remove form compare
+              </button>
+              <button
                 className="btn btn-outline-primary m-1"
                 style={
                   this.props.AddedToCompare
@@ -47,7 +58,7 @@ class Product extends Component {
                 Add to Compare
               </button>
               <button
-                className="badge badge-danger kk"
+                className="btn btn-outline-danger kk p-1"
                 onClick={() => this.props.onDelete(this.props.info.id)}
               >
                 X

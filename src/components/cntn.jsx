@@ -4,48 +4,51 @@ import AddForm from "./AddPhone_Form";
 import CompareTable from "./CompareTable";
 
 class Cntn extends Component {
-  state = {
-    list: [
-      {
-        id: 1,
-        brand: "Xiaomi",
-        model: "mi 9",
-        ram: "8",
-        storage: "64",
-        battery: "4000"
-      },
-      {
-        id: 2,
-        brand: "nokia",
-        model: "6.1",
-        ram: "8",
-        storage: "64",
-        battery: "4000"
-      },
-      {
-        id: 3,
-        brand: "samsung",
-        model: "galaxy s9 plus",
-        ram: "8",
-        storage: "64",
-        battery: "4000"
-      },
-      {
-        id: 4,
-        brand: "motorolla",
-        model: "z2 force",
-        ram: "8",
-        storage: "64",
-        battery: "4000"
-      }
-    ],
-    addingPhone: false,
-    addedPhone: true,
-    editing: false,
-    selelctedPhone: 0,
-    compare: false,
-    compareList: []
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      list: [
+        {
+          id: 1,
+          brand: "Xiaomi",
+          model: "mi 9",
+          ram: "8",
+          storage: "64",
+          battery: "4000"
+        },
+        {
+          id: 2,
+          brand: "nokia",
+          model: "6.1",
+          ram: "8",
+          storage: "64",
+          battery: "4000"
+        },
+        {
+          id: 3,
+          brand: "samsung",
+          model: "galaxy s9 plus",
+          ram: "8",
+          storage: "64",
+          battery: "4000"
+        },
+        {
+          id: 4,
+          brand: "motorolla",
+          model: "z2 force",
+          ram: "8",
+          storage: "64",
+          battery: "4000"
+        }
+      ],
+      addingPhone: false,
+      addedPhone: true,
+      editing: false,
+      selelctedPhone: 0,
+      compare: false,
+      compareList: []
+    };
+  }
 
   AddCompareHandler = idd => {
     if (this.state.compareList.length < 3) {
@@ -61,7 +64,7 @@ class Cntn extends Component {
       if (newList.length < 1) {
         this.setState({ compare: false, compareList: [] });
       } else {
-        this.setState({ compare: true, compareList: newList });
+        this.setState({ compareList: newList });
       }
     }
   };
@@ -97,17 +100,21 @@ class Cntn extends Component {
   };
   EdittedHandler = obj => {
     let newList = this.state.list;
-    newList.forEach(el => {});
     for (let index = 0; index < newList.length; index++) {
       if (newList[index].id == obj.id) {
         newList[index] = obj;
         break;
       }
     }
-    if (this.state.compareList.find(elem => elem.id === obj.id)) {
-      this.RemoveCompareHandler(obj.id);
-    }
     this.setState({ list: newList });
+    if (this.state.compareList.find(elem => elem.id === obj.id)) {
+      for (let index = 0; index < this.state.compareList.length; index++) {
+        if (this.state.compareList[index].id == obj.id) {
+          this.state.compareList[index] = obj;
+          break;
+        }
+      }
+    }
   };
 
   render() {
@@ -116,6 +123,15 @@ class Cntn extends Component {
       flexDirection: "row",
       flexWrap: "wrap"
     };
+
+    var productId = 1;
+    if (this.state.addingPhone) {
+      if (this.state.list && this.state.list.length > 0) {
+        productId = this.state.list[this.state.list.length - 1].id;
+      }
+    } else {
+      productId = this.state.selelctedPhone;
+    }
 
     return (
       <div
@@ -134,28 +150,22 @@ class Cntn extends Component {
             </button>
           </div>
           <div
-            className="add-form p-2 bg-white w-100 position-fixed faic fjcc"
+            className="add-form p-2  w-100 position-fixed faic fjcc"
             style={
               this.state.addingPhone ? { display: "flex" } : { display: "none" }
             }
           >
-            {this.state.addingPhone ? (
+            {this.state.addingPhone && (
               <AddForm
                 onClose={this.CloseAddingForm}
                 onAdded={this.AddedPhoneHandler}
                 onEdit={this.EdittedHandler}
-                myId={
-                  this.state.addingPhone
-                    ? this.state.list[this.state.list.length - 1].id
-                    : this.state.selelctedPhone
-                }
+                myId={productId}
                 editing={this.state.editing}
                 data={this.state.list.find(
                   obj => obj.id === this.state.selelctedPhone
                 )}
               />
-            ) : (
-              ""
             )}
           </div>
           <div className="col-12 fx-cc py-2" style={styles}>
