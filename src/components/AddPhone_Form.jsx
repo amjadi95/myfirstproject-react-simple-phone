@@ -1,43 +1,49 @@
 import React, { Component } from "react";
+import { throwStatement } from "@babel/types";
 
 class AddForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ram: "",
-      storage: "",
-      battery: "",
-      brand: "",
-      model: "",
+      info: {
+        ram: "",
+        storage: "",
+        battery: "",
+        brand: "",
+        model: ""
+      },
       id: 0
     };
+    this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
-    this.setState({
-      ram: this.props.data ? this.props.data.ram : "",
-      storage: this.props.data ? this.props.data.storage : "",
-      battery: this.props.data ? this.props.data.battery : "",
-      brand: this.props.data ? this.props.data.brand : "",
-      model: this.props.data ? this.props.data.model : "",
-      id: 0
-    });
+    if (this.props.data) {
+      this.setState({
+        info: this.props.data,
+        id: 0
+      });
+    }
   }
-  RamHandleChange = event => {
-    this.setState({ ram: event.target.value });
-  };
-  StorageHandleChange = event => {
-    this.setState({ storage: event.target.value });
-  };
-  BatteryHandleChange = event => {
-    this.setState({ battery: event.target.value });
-  };
-  BrandHandleChange = event => {
-    this.setState({ brand: event.target.value });
-  };
-  ModelHandleChange = event => {
-    this.setState({ model: event.target.value });
-  };
+  onChange(event, index) {
+    console.log("event :", event);
+    console.log("index :", index);
+    let temp = this.state.info;
+    //temp.brand = event.target.value;
+    this.setState({ info: temp });
+  }
+  // StorageHandleChange = event => {
+  //   this.setState({ storage: event.target.value });
+  // };
+  // BatteryHandleChange = event => {
+  //   this.setState({ battery: event.target.value });
+  // };
+  // BrandHandleChange = event => {
+  //   this.setState({ brand: event.target.value });
+  // };
+  // ModelHandleChange = event => {
+  //   this.setState({ model: event.target.value });
+  // };
 
   render() {
     // let brand = "",
@@ -53,6 +59,7 @@ class AddForm extends Component {
     //   storage = this.props.data.storage;
     //   battery = this.props.data.battery;
     // }
+    var data = this.state.info;
 
     return (
       <div className="position-relative p-4">
@@ -67,11 +74,11 @@ class AddForm extends Component {
             className="form-control"
             aria-label="Small"
             aria-describedby="inputGroup-sizing-default"
-            value={this.state.brand}
-            onChange={this.BrandHandleChange}
+            value={data.brand}
+            onChange={() => onChange(this, "brand")}
           />
         </div>
-        <div className="input-group input-group-default mb-3">
+        {/* <div className="input-group input-group-default mb-3">
           <div className="input-group-prepend">
             <span className="input-group-text" id="inputGroup-sizing-default">
               Model
@@ -82,8 +89,8 @@ class AddForm extends Component {
             className="form-control"
             aria-label="Small"
             aria-describedby="inputGroup-sizing-default"
-            value={this.state.model}
-            onChange={this.ModelHandleChange}
+            value={data.model}
+            onChange={this.onChnage("model")}
           />
         </div>
         <div className="input-group input-group-default mb-3">
@@ -97,8 +104,8 @@ class AddForm extends Component {
             className="form-control"
             aria-label="Small"
             aria-describedby="inputGroup-sizing-default"
-            value={this.state.ram}
-            onChange={this.RamHandleChange}
+            value={data.ram}
+            onChange={this.onChange("ram")}
           />
         </div>
         <div className="input-group input-group-default mb-3">
@@ -112,8 +119,8 @@ class AddForm extends Component {
             className="form-control"
             aria-label="Small"
             aria-describedby="inputGroup-sizing-default"
-            value={this.state.storage}
-            onChange={this.StorageHandleChange}
+            value={data.storage}
+            onChange={this.onChange("storage")}
           />
         </div>
         <div className="input-group input-group-default mb-3">
@@ -127,10 +134,10 @@ class AddForm extends Component {
             className="form-control"
             aria-label="Small"
             aria-describedby="inputGroup-sizing-default"
-            value={this.state.battery}
-            onChange={this.BatteryHandleChange}
+            value={data.battery}
+            onChange={this.onChange("battery")}
           />
-        </div>
+        </div> */}
         {this.props.editing ? (
           <button
             className="btn btn-primary px-5"
