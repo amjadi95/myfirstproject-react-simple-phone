@@ -7,6 +7,18 @@ class Cntn extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      list: [],
+      addingPhone: false,
+      addedPhone: true,
+      editing: false,
+      showDetails: false,
+      selelctedPhone: 0,
+      compare: false,
+      compareList: []
+    };
+  }
+  componentDidMount() {
+    this.setState({
       list: [
         {
           id: 1,
@@ -40,24 +52,17 @@ class Cntn extends Component {
           storage: "64",
           battery: "4000"
         }
-      ],
-      addingPhone: false,
-      addedPhone: true,
-      editing: false,
-      selelctedPhone: 0,
-      compare: false,
-      compareList: []
-    };
+      ]
+    });
   }
-
-  AddCompareHandler = idd => {
+  onAdd_toCompare = idd => {
     if (this.state.compareList.length < 3) {
       let newList = this.state.compareList;
       newList.push(this.state.list.find(obj => obj.id === idd));
       this.setState({ compare: true, compareList: newList });
     }
   };
-  RemoveCompareHandler = idd => {
+  onRemove_fromCompare = idd => {
     if (this.state.compareList.length > 0) {
       let newList = this.state.compareList.filter(obj => obj.id !== idd);
 
@@ -69,28 +74,29 @@ class Cntn extends Component {
     }
   };
 
-  RemoveProductHandler = idd => {
+  onRemove_product = idd => {
     let newList = this.state.list.filter(obj => obj.id !== idd);
-    this.setState({ list: newList });
+    if (this.state.selelctedPhone === idd) {
+      this.setState({
+        addingPhone: false,
+        addedPhone: false,
+        editing: false,
+        showDetails: false,
+        selelctedPhone: 0,
+        list: newList
+      });
+    } else if (this.state.compareList.find(obj => obj.id === idd)) {
+      this.onRemove_fromCompare(idd);
+      this.setState({ list: newList });
+    } else {
+      this.setState({ list: newList });
+    }
   };
 
-  AddingPhoneHandler = () => {
+  onShow_addForm = () => {
     this.setState({ addingPhone: true, addedPhone: false, editing: false });
   };
-  CloseAddingForm = () => {
-    this.setState({
-      addingPhone: false,
-      addedPhone: false,
-      editing: false,
-      selelctedPhone: 0
-    });
-  };
-  AddedPhoneHandler = obj => {
-    let newList = this.state.list;
-    newList.push(obj);
-    this.setState({ list: newList });
-  };
-  EditingHandler = idd => {
+  onShow_editForm = idd => {
     this.setState({
       addingPhone: true,
       addedPhone: false,
@@ -98,7 +104,21 @@ class Cntn extends Component {
       selelctedPhone: idd
     });
   };
-  EdittedHandler = obj => {
+  onClose_addForm = () => {
+    this.setState({
+      addingPhone: false,
+      addedPhone: false,
+      editing: false,
+      showDetails: false,
+      selelctedPhone: 0
+    });
+  };
+  onAdd_product = obj => {
+    let newList = this.state.list;
+    newList.push(obj);
+    this.setState({ list: newList });
+  };
+  onEdit_product = obj => {
     let newList = this.state.list;
     for (let index = 0; index < newList.length; index++) {
       if (newList[index].id == obj.id) {
@@ -115,6 +135,15 @@ class Cntn extends Component {
         }
       }
     }
+  };
+  onShow_details = idd => {
+    this.setState({
+      addingPhone: true,
+      addedPhone: false,
+      editing: false,
+      showDetails: true,
+      selelctedPhone: idd
+    });
   };
 
   render() {
@@ -144,40 +173,49 @@ class Cntn extends Component {
           <div className="col-12 p-1">
             <button
               className="btn btn-primary"
-              onClick={() => this.AddingPhoneHandler()}
+              onClick={() => this.onShow_addForm()}
             >
               +
             </button>
           </div>
-          <div
-            className="add-form p-2  w-100 position-fixed faic fjcc"
-            style={
-              this.state.addingPhone ? { display: "flex" } : { display: "none" }
-            }
-          >
-            {this.state.addingPhone && (
-              <AddForm
-                onClose={this.CloseAddingForm}
-                onAdded={this.AddedPhoneHandler}
-                onEdit={this.EdittedHandler}
-                myId={productId}
-                editing={this.state.editing}
-                data={this.state.list.find(
-                  obj => obj.id === this.state.selelctedPhone
-                )}
-              />
-            )}
-          </div>
+          {this.state.addingPhone && (
+            <React.Fragment>
+              <div
+                className="h-100 w-100  position-fixed  click-close"
+                onClick={this.onClose_addForm}
+              ></div>
+              <div
+                className="add-form p-2   position-fixed faic fjcc"
+                style={
+                  this.state.addingPhone
+                    ? { display: "flex" }
+                    : { display: "none" }
+                }
+              >
+                <AddForm
+                  onClose={this.onClose_addForm}
+                  onAdded={this.onAdd_product}
+                  onEdit={this.onEdit_product}
+                  myId={productId}
+                  editing={this.state.editing}
+                  showDetails={this.state.showDetails}
+                  data={this.state.list.find(
+                    obj => obj.id === this.state.selelctedPhone
+                  )}
+                />
+              </div>
+            </React.Fragment>
+          )}
           <div className="col-12 fx-cc py-2" style={styles}>
             {this.state.list.map(obj => (
               <Product
                 key={obj.id}
                 info={obj}
-                onShow={this.AddCompareHandler}
-                onAdd={this.AddCompareHandler}
-                onRemove={this.RemoveCompareHandler}
-                onDelete={this.RemoveProductHandler}
-                onEdit={this.EditingHandler}
+                onShow={this.onShow_details}
+                onAdd={this.onAdd_toCompare}
+                onRemove={this.onRemove_fromCompare}
+                onDelete={this.onRemove_product}
+                onEdit={this.onShow_editForm}
                 AddedToCompare={
                   this.state.compareList.find(elem => elem.id === obj.id)
                     ? true
@@ -191,7 +229,7 @@ class Cntn extends Component {
           {this.state.compare && (
             <CompareTable
               list={this.state.compareList}
-              onRemove={this.RemoveCompareHandler}
+              onRemove={this.onRemove_fromCompare}
             />
           )}
         </div>

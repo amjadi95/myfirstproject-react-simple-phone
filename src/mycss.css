@@ -90,9 +90,11 @@ html {
 .phone-product:hover .product-hover-effect {
   opacity: 1;
 }
-
+.click-close {
+  z-index: 10001;
+}
 .add-form {
-  z-index: 999999;
+  z-index: 10002;
   top: 20%;
   background-color: transparent !important;
 }
