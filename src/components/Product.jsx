@@ -10,11 +10,11 @@ class Product extends Component {
       >
         <div
           className="img w-100 fx-cc"
-          style={{
-            height: 190,
-            padding: "0 !important",
-            position: "relative"
-          }}
+          // style={{
+          //   height: 75%,
+          //   padding: "0 !important",
+          //   position: "relative"
+          // }}
         >
           <div className="w-100 h-100  product-hover-effect  fx-cc">
             <div className="position-relative w-100 h-100 fx-cc fxdc">

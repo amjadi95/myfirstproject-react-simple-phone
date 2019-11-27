@@ -12,7 +12,7 @@ class CompareTable extends Component {
               </th>
               {this.props.list.map(obj => (
                 <th scope="col" key={obj.id}>
-                  {obj.model}
+                  {obj.brand + " " + obj.model}
                 </th>
               ))}
             </tr>

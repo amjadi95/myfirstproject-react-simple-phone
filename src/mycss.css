@@ -108,6 +108,19 @@ html {
 table {
   width: 60% !important;
 }
+.phone-product:hover > :nth-child(2) {
+  background-color: #f72828e3;
+  color: white;
+}
+.phone-product > :nth-child(1) {
+  height: 75%;
+  padding: 0 !important;
+  position: relative;
+}
+.phone-product > :nth-child(2) {
+  height: 25%;
+}
+
 @media (max-width: 600px) {
   table {
     width: 100%;
