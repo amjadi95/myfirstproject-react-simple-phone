@@ -4,44 +4,39 @@ class AddForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ram: "",
-      storage: "",
-      battery: "",
-      brand: "",
-      model: "",
-      id: 0
+      phone: { ram: "", storage: "", battery: "", brand: "", model: "", id: 0 }
     };
   }
 
   componentDidMount() {
     if (this.props.data)
       this.setState({
-        ram: this.props.data.ram,
-        storage: this.props.data.storage,
-        battery: this.props.data.battery,
-        brand: this.props.data.brand,
-        model: this.props.data.model,
-        id: 0
+        phone: this.props.data
       });
   }
-  onChnageRam = event => {
-    this.setState({ ram: event.target.value });
+  onChange = (event, elem) => {
+    var newPhone = this.state.phone;
+    newPhone[elem] = event.target.value;
+    this.setState({ phone: newPhone });
   };
-  onChangeStorage = event => {
-    this.setState({ storage: event.target.value });
-  };
-  onChnageBattery = event => {
-    this.setState({ battery: event.target.value });
-  };
-  onChangeBrand = event => {
-    this.setState({ brand: event.target.value });
-  };
-  onChnageModel = event => {
-    this.setState({ model: event.target.value });
-  };
+  // onChnageRam = event => {
+  //   this.setState({ ram: event.target.value });
+  // };
+  // onChangeStorage = event => {
+  //   this.setState({ storage: event.target.value });
+  // };
+  // onChnageBattery = event => {
+  //   this.setState({ battery: event.target.value });
+  // };
+  // onChangeBrand = event => {
+  //   this.setState({ brand: event.target.value });
+  // };
+  // onChnageModel = event => {
+  //   this.setState({ model: event.target.value });
+  // };
 
   render() {
-    var info = this.state;
+    var info = this.state.phone;
     var isShowDetails = this.props.showDetails;
     return (
       <div
@@ -62,7 +57,9 @@ class AddForm extends Component {
             aria-label="Small"
             aria-describedby="inputGroup-sizing-default"
             value={info.brand}
-            onChange={this.onChangeBrand}
+            onChange={event => {
+              this.onChange(event, "brand");
+            }}
             disabled={isShowDetails}
           />
         </div>
@@ -78,7 +75,9 @@ class AddForm extends Component {
             aria-label="Small"
             aria-describedby="inputGroup-sizing-default"
             value={info.model}
-            onChange={this.onChnageModel}
+            onChange={event => {
+              this.onChange(event, "model");
+            }}
             disabled={isShowDetails}
           />
         </div>
@@ -94,7 +93,9 @@ class AddForm extends Component {
             aria-label="Small"
             aria-describedby="inputGroup-sizing-default"
             value={info.ram}
-            onChange={this.onChnageRam}
+            onChange={event => {
+              this.onChange(event, "ram");
+            }}
             disabled={isShowDetails}
           />
         </div>
@@ -110,7 +111,9 @@ class AddForm extends Component {
             aria-label="Small"
             aria-describedby="inputGroup-sizing-default"
             value={info.storage}
-            onChange={this.onChangeStorage}
+            onChange={event => {
+              this.onChange(event, "storage");
+            }}
             disabled={isShowDetails}
           />
         </div>
@@ -126,7 +129,9 @@ class AddForm extends Component {
             aria-label="Small"
             aria-describedby="inputGroup-sizing-default"
             value={info.battery}
-            onChange={this.onChnageBattery}
+            onChange={event => {
+              this.onChange(event, "battery");
+            }}
             disabled={isShowDetails}
           />
         </div>
@@ -136,8 +141,8 @@ class AddForm extends Component {
             <button
               className="btn btn-primary px-5"
               onClick={() => {
-                this.state.id = this.props.data.id;
-                this.props.onEdit(this.state);
+                this.state.phone.id = this.props.data.id;
+                this.props.onEdit(this.state.phone);
                 this.props.onClose();
               }}
             >
@@ -147,8 +152,8 @@ class AddForm extends Component {
             <button
               className="btn btn-primary px-5"
               onClick={() => {
-                this.state.id = this.props.myId + 1;
-                this.props.onAdded(this.state);
+                this.state.phone.id = this.props.myId + 1;
+                this.props.onAdded(this.state.phone);
                 this.props.onClose();
               }}
             >
